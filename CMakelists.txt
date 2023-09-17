@@ -1,0 +1,40 @@
+project(vgrenderer)
+
+
+# Find bgfx and bx libraries
+find_package(bgfx REQUIRED)
+
+
+
+# Add the source files to the project
+set(SOURCE_FILES
+    src/path.cpp
+    src/vg.cpp
+    src/stroker.cpp
+    src/vg_util.cpp
+	src/libs/fontstash.cpp
+	src/libs/stb_truetype.cpp
+    src/libtess2/tess.c
+    src/libtess2/bucketalloc.c
+    src/libtess2/dict.c
+    src/libtess2/geom.c
+    src/libtess2/mesh.c
+    src/libtess2/tess.c
+    src/libtess2/priorityq.c
+    src/libtess2/sweep.c
+
+
+)
+
+# Add the header files as public headers
+set(HEADER_FILES
+    src/libs/fontstash.h
+	src/libs/stb_truetype.h
+
+)
+
+
+
+add_library(vgrenderer STATIC ${SOURCE_FILES} ${HEADER_FILES})
+target_link_libraries(vgrenderer PUBLIC bgfx bx)
+target_include_directories(vgrenderer PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} "./include")
